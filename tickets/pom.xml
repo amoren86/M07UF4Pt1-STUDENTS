@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cat.institutmarianao</groupId>
+	<artifactId>tickets</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>tickets</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		<jakarta.xml>4.0.2</jakarta.xml>
+		<compiler-plugin.version>3.11.0</compiler-plugin.version>
+		<war-plugin.version>3.3.2</war-plugin.version>
+	</properties>
+
+	<dependencies>
+		<!-- Jakarta XML Bind -->
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>${jakarta.xml}</version>
+		</dependency>
+		<!-- SOAP WS Runtime -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>${jakarta.xml}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- SOAP WS Implementation -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-ri</artifactId>
+			<version>${jakarta.xml}</version>
+			<type>pom</type>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- Maven war -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${war-plugin.version}</version>
+				</plugin>
+				<!-- Maven compiler -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler-plugin.version}</version>
+				</plugin>
+				<!-- JAXWS -->
+				<!--Execute mvn clean install jaxws:wsgen to generate service artifacts -->
+				<plugin>
+					<groupId>com.sun.xml.ws</groupId>
+					<artifactId>jaxws-maven-plugin</artifactId>
+					<version>${jakarta.xml}</version>
+					<configuration>
+						<sei>cat.institutmarianao.tickets.service.impl.TicketServiceEndpointImpl</sei>
+						<sourceDestDir>src/main/java</sourceDestDir>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
