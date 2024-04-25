@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cat.institutmarianao</groupId>
+	<artifactId>tickets.webclient</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+	<name>tickets-webclient</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		<jakartaee-api.version>10.0.0</jakartaee-api.version>
+		<jakarta.servlet.jsp.jstl>3.0.0</jakarta.servlet.jsp.jstl>
+		<jakarta.xml>4.0.1</jakarta.xml>
+		<spring.version>6.1.1</spring.version>
+		<compiler-plugin.version>3.11.0</compiler-plugin.version>
+		<war-plugin.version>3.3.2</war-plugin.version>
+		<jaxws-maven-plugin.version>2.6</jaxws-maven-plugin.version>
+	</properties>
+
+	<dependencies>
+	
+		<!-- Jakarta EE Web API -->
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-web-api</artifactId>
+			<version>${jakartaee-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Jakarta JSTL -->
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<version>${jakarta.servlet.jsp.jstl}</version>
+		</dependency>
+
+		<!-- Spring Web MVC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Jakarta XML Bind -->
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>${jakarta.xml}</version>
+		</dependency>
+
+		<!-- SOAP WS Runtime -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>${jakarta.xml}</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!-- SOAP WS Implementation -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-ri</artifactId>
+			<version>${jakarta.xml}</version>
+			<type>pom</type>
+		</dependency>
+		
+		<!-- Jakarta XML Web Services API -->
+<!--	<dependency>
+			<groupId>jakarta.xml.ws</groupId>
+			<artifactId>jakarta.xml.ws-api</artifactId>
+			<version>${jakarta.xml}</version>
+			<scope>provided</scope>
+		</dependency>
+-->
+		<!-- Implementación de JAX-WS -->
+<!--   <dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>${jakarta.xml}</version>
+			<scope>runtime</scope>
+		</dependency>
+-->
+
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+
+		<pluginManagement>
+			<plugins>
+				<!-- Maven War Plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${war-plugin.version}</version>
+				</plugin>
+
+				<!-- Maven Compiler Plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler-plugin.version}</version>
+				</plugin>
+
+				<!-- JAX-WS Maven Plugin -->
+				<!--Execute mvn clean jaxws:wsimport to generate service artifacts -->
+				<plugin>
+					<groupId>com.sun.xml.ws</groupId>
+					<artifactId>jaxws-maven-plugin</artifactId>
+					<version>${jakarta.xml}</version>
+					<configuration>
+						<wsdlUrls>
+							<wsdlUrl>
+								http://localhost:8080/tickets/TicketService?wsdl</wsdlUrl>
+						</wsdlUrls>
+						<keep>true</keep>
+						<packageName>
+							cat.institutmarianao.tickets.webclient.jaxws</packageName>
+						<sourceDestDir>src/main/java</sourceDestDir>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
