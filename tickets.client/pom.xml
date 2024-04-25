@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cat.institutmarianao</groupId>
 	<artifactId>tickets.client</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -19,12 +20,14 @@
 	</properties>
 	
 	<dependencies>
+	
 		<!-- Jakarta XML Bind -->
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>
 			<version>${jakarta.xml}</version>
 		</dependency>
+
 		<!-- SOAP WS Runtime -->
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
@@ -32,6 +35,7 @@
 			<version>${jakarta.xml}</version>
 			<scope>runtime</scope>
 		</dependency>
+		
 		<!-- SOAP WS Implementation -->
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
@@ -39,22 +43,26 @@
 			<version>${jakarta.xml}</version>
 			<type>pom</type>
 		</dependency>
+		
 	</dependencies>
+	
 	<build>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
+
 		<pluginManagement>
 			<plugins>
-				<!-- Maven compiler -->
+				<!-- Maven Compiler Plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${compiler-plugin.version}</version>
 				</plugin>
-				<!-- JAXWS -->
+
+				<!-- JAX-WS Maven Plugin -->
 				<!--Execute mvn clean jaxws:wsimport to generate service artifacts -->
 				<plugin>
 					<groupId>com.sun.xml.ws</groupId>
